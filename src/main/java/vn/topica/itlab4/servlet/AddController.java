@@ -38,11 +38,13 @@ public class AddController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
+		//check info get from request
 		if ( request.getParameter("name").matches("\\s+") || request.getParameter("birthday").matches("\\s+")
 				|| request.getParameter("gender").matches("\\s+") || request.getParameter("date").matches("\\s+")) {
 			request.setAttribute("listStudents",  StudentDB.getListStudents());
 			request.getRequestDispatcher("Home.jsp").forward(request, response);
 		} else {
+			//get info of student from request
 			String name =request.getParameter("name");
 			int yearOfBirth = Integer.parseInt(request.getParameter("birthday"));
 			int gender = Integer.parseInt(request.getParameter("gender"));
@@ -53,11 +55,11 @@ public class AddController extends HttpServlet {
 			}else {
 				g=false;
 			}
-			Students s = new Students(name, yearOfBirth, g, dateStudy);
-			StudentDB.addStudent(s);
+			Students s = new Students(name, yearOfBirth, g, dateStudy);//create new student
+			StudentDB.addStudent(s);//add to database
 			
 			request.setAttribute("message", "Add success");
-			response.sendRedirect("/");
+			response.sendRedirect("/");//return to home page
 		}
 	}
 
