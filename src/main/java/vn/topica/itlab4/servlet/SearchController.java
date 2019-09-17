@@ -27,13 +27,14 @@ public class SearchController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		String name=request.getParameter("search");
+		//check name to search
 		if(name.trim().isEmpty()) {
 			request.setAttribute("listStudents", StudentDB.getListStudents());
 			request.getRequestDispatcher("Home.jsp").forward(request, response);
 		}else {
 			request.setAttribute("listStudents", StudentDB.searchStudent(name));
 			request.setAttribute("textSearch", name);
-			request.getRequestDispatcher("Home.jsp").forward(request, response);
+			request.getRequestDispatcher("Home.jsp").forward(request, response);//get data search and return home page 
 		}
 	}
 
