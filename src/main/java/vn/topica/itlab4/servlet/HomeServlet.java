@@ -10,25 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class HomeServlet
+ *
  */
 @WebServlet(urlPatterns = "/")
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private int count=0;
-//	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        request.setAttribute("listStudents", StudentDB.getStudents());
-//		request.getRequestDispatcher("/Home.jsp").forward(request, response);
-//    }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if(count==0) {
-			StudentDB.createDB();
+			StudentDB.createDB(); //create database in first time 
 			count++;
 		}
 
-		request.setAttribute("listStudents", StudentDB.getListStudents());
+		request.setAttribute("listStudents", StudentDB.getListStudents());//send data to jsp
 		request.getRequestDispatcher("/Home.jsp").forward(request, response);
 	}
 
